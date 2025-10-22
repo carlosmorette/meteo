@@ -3,9 +3,10 @@ defmodule Meteo.WeatherService do
   Module responsible for fetching weather data and calculating statistics.
   """
 
-  @api_url "https://api.open-meteo.com/v1/forecast"
-  @timezone "America/Sao_Paulo"
-  @days 6
+  @config Application.compile_env(:meteo, Meteo.WeatherService)
+  @api_url @config[:api_url]
+  @timezone @config[:timezone]
+  @days @config[:days]
 
   def client do
     Tesla.client(middleware(), Application.get_env(:tesla, :adapter, Tesla.Adapter.Hackney))
